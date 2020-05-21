@@ -1,23 +1,22 @@
 #include <stdio.h>
 #include <string.h>
 
-int *TXTCount(char *filename, char w);
+int *TXTCount(char *filename, char *w);
 
 int main(){
     char filename[30];
-	char w;
-    printf("Input file name: ");
-    scanf("%s", filename);
-	printf("input count way:(input c 字符数 or  w 单词数)\n");
-	scanf("%s",&w);
-
+	char w[5];
+	
+    printf("Input file name &&input count way:(input -c 字符数 or  -w 单词数)\n ");
+    scanf("%s %s",&w,filename);
+	
 	TXTCount(filename, w);
     return 0;
 }
 
 
 
-int *TXTCount(char *filename, char w){
+int *TXTCount(char *filename, char *w ){
 	FILE  *f;//文件指针
 	char buffer[1003];
 	int bufferL;
@@ -40,27 +39,28 @@ int *TXTCount(char *filename, char w){
 		if(c==' '||c=='\t'){
 			!blank&&wordnum++;
 			blank = 1;
+			charnum++;
 		}
 		else{
 			charnum++;
 			blank=0;
 		}
 	}
-	blank&&wordnum++;//最后一个字符不是空格
+	!blank&&wordnum++;//最后一个字符不是空格
 	blank=1;
 		
 	CharNum +=charnum;
-	WordNum+=wordnum;
+	WordNum +=wordnum;
 
 	charnum = 0;
     wordnum = 0;
 
 	}
 
-	if(w=='c'){
+	if(strcmp(w,"-c")==0){
 		printf("字符数：%d\n",CharNum);
 	}
-	else{
+	else {
 		printf("单词数：%d\n",WordNum);
 	}
 

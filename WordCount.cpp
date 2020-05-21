@@ -1,22 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int *TXTCount(char *filename, char *w);
-
-int main(){
-    char filename[30];
-	char w[5];
-	
-    printf("Input file name &&input count way:(input -c 字符数 or  -w 单词数)\n ");
-    scanf("%s %s",&w,filename);
-	
-	TXTCount(filename, w);
-    return 0;
-}
-
-
-
-int *TXTCount(char *filename, char *w ){
+int main(int argc,char *argv[] ){
 	FILE  *f;//文件指针
 	char buffer[1003];
 	int bufferL;
@@ -28,8 +13,8 @@ int *TXTCount(char *filename, char *w ){
 	int CharNum = 0;
 	int WordNum = 0;//总的字符数，单词数
 
-	if((f=fopen(filename,"rb"))==NULL){
-		perror(filename);//读取路径下的文本文件  输出错误
+	if((f=fopen(argv[2],"rb"))==NULL){
+		perror(argv[2]);//读取路径下的文本文件  输出错误
 		return NULL;
 	}
 	while(fgets(buffer,1003,f)!=NULL){
@@ -57,7 +42,7 @@ int *TXTCount(char *filename, char *w ){
 
 	}
 
-	if(strcmp(w,"-c")==0){
+	if(strcmp(argv[1],"-c")==0){
 		printf("字符数：%d\n",CharNum);
 	}
 	else {
